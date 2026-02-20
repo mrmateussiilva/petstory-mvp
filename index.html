@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Story - Crie a história do seu pet</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: system-ui, sans-serif; max-width: 480px; margin: 0 auto; padding: 1.5rem; }
+        header { text-align: center; margin-bottom: 2rem; }
+        main h2 { margin-top: 0; }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.35rem; }
+        .form-group input[type="text"],
+        .form-group input[type="email"] { width: 100%; padding: 0.6rem 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+        .form-group input[type="file"] { width: 100%; padding: 0.5rem; border: 1px dashed #999; border-radius: 6px; background: #f8f8f8; font-size: 0.9rem; }
+        .form-group input:focus { outline: none; border-color: #4a9; box-shadow: 0 0 0 2px rgba(68, 170, 153, 0.2); }
+        .checkout-cta-wrapper { position: relative; min-height: 52px; margin-top: 0.5rem; }
+        .checkout-cta-overlay { position: absolute; inset: 0; cursor: pointer; z-index: 1; }
+        .checkout-cta-overlay:hover { background: rgba(0,0,0,0.03); border-radius: 6px; }
+        .alert-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; }
+        .alert-backdrop.is-open { opacity: 1; visibility: visible; }
+        .alert-box { background: #fff; border-radius: 8px; padding: 1.25rem; max-width: 320px; width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .alert-box p { margin: 0 0 1rem; font-size: 0.95rem; line-height: 1.4; color: #333; }
+        .alert-box .alert-ok { width: 100%; padding: 0.5rem 1rem; background: #2a8; color: #fff; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+        .alert-box .alert-ok:hover { background: #269; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Pet Story</h1>
+        <p>Crie a história do seu pet</p>
+    </header>
+    <main>
+        <h2>Crie a história do seu pet</h2>
+        <form id="pet-form" action="#" method="post">
+            <div class="form-group">
+                <label for="pet-name">Nome do pet</label>
+                <input type="text" id="pet-name" name="pet-name" placeholder="Ex: Rex, Luna..." required>
+            </div>
+            <div class="form-group">
+                <label for="user-email">Email do usuário</label>
+                <input type="email" id="user-email" name="user-email" placeholder="seu@email.com" required>
+            </div>
+            <div class="form-group">
+                <label for="pet-file">Foto ou arquivo do pet</label>
+                <input type="file" id="pet-file" name="pet-file" accept="image/*,.pdf" multiple>
+            </div>
+            <div class="checkout-cta-wrapper" id="checkout-cta-wrapper">
+                <script class="ymp-script" src="https://api.yampi.io/v2/finderbit/public/buy-button/D044679AOQ/js"></script>
+                <div class="checkout-cta-overlay" id="checkout-cta-overlay" title="Preencha os dados e clique para ir ao pagamento"></div>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <p>Pet Story - Crie a história do seu pet</p>
+        <a href="https://www.finderbit.com.br" target="_blank">made by finderbit</a>
+    </footer>
+    <div class="alert-backdrop" id="custom-alert" role="alertdialog" aria-modal="true" aria-labelledby="alert-message" hidden>
+        <div class="alert-box">
+            <p id="alert-message"></p>
+            <button type="button" class="alert-ok" id="alert-ok">OK</button>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
