@@ -53,10 +53,6 @@ def criar_checkout(
                 "imageBase64": _placeholder_image_base64(),
             }
         ],
-        "customerData": {
-            "name": nome_cliente[:255],
-            "email": email_cliente,
-        },
         "minutesToExpire": 30,
     }
 
