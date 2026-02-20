@@ -4,40 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Story - Crie a história do seu pet</title>
-    <style>
-        * { box-sizing: border-box; }
-        body { font-family: system-ui, sans-serif; max-width: 480px; margin: 0 auto; padding: 1.5rem; }
-        header { text-align: center; margin-bottom: 2rem; }
-        main h2 { margin-top: 0; }
-        .form-group { margin-bottom: 1.25rem; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 0.35rem; }
-        .form-group input[type="text"],
-        .form-group input[type="email"] { width: 100%; padding: 0.6rem 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
-        .drop-zone { width: 100%; min-height: 100px; padding: 1rem; border: 2px dashed #999; border-radius: 6px; background: #f8f8f8; font-size: 0.9rem; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; transition: border-color 0.2s, background 0.2s; }
-        .drop-zone:hover { border-color: #4a9; background: #f0faf0; }
-        .drop-zone.dragover { border-color: #4a9; background: #e8f5e9; }
-        .drop-zone .hint { color: #666; font-size: 0.85rem; }
-        .file-list { margin-top: 0.5rem; font-size: 0.85rem; color: #333; }
-        .file-list.empty { color: #999; }
-        input[name="pet-file"] { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
-        .form-group input:focus { outline: none; border-color: #4a9; box-shadow: 0 0 0 2px rgba(68, 170, 153, 0.2); }
-        .checkout-cta-wrapper { position: relative; min-height: 52px; margin-top: 0.5rem; }
-        .checkout-cta-overlay { position: absolute; inset: 0; cursor: pointer; z-index: 1; }
-        .checkout-cta-overlay:hover { background: rgba(0,0,0,0.03); border-radius: 6px; }
-        .checkout-btn { width: 100%; padding: 0.75rem; background: #2a8; color: #fff; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; pointer-events: none; }
-        .alert-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; }
-        .alert-backdrop.is-open { opacity: 1; visibility: visible; }
-        .alert-box { background: #fff; border-radius: 8px; padding: 1.25rem; max-width: 320px; width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
-        .alert-box p { margin: 0 0 1rem; font-size: 0.95rem; line-height: 1.4; color: #333; }
-        .alert-box .alert-ok { width: 100%; padding: 0.5rem 1rem; background: #2a8; color: #fff; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
-        .alert-box .alert-ok:hover { background: #269; }
-        .checkout-result { display: none; text-align: center; padding: 2rem 0; }
-        .checkout-result.is-visible { display: block; }
-        .checkout-result h2 { margin-top: 0; }
-        .checkout-result.success { color: #2a8; }
-        .checkout-result.cancel { color: #666; }
-        .checkout-result a { display: inline-block; margin-top: 1rem; color: #2a8; font-weight: 600; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
