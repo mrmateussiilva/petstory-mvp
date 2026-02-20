@@ -12,3 +12,9 @@ wheels/
 # Dados e uploads (gerados em runtime)
 data/
 uploads/
+
+# Variáveis de ambiente (não versionar segredos)
+.env
+
+# Log de envio de email
+email.log
