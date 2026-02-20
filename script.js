@@ -44,9 +44,7 @@ addEventListener("DOMContentLoaded", () => {
             if (!res.ok) throw new Error(`Erro ${res.status}`);
             await res.json().catch(() => ({}));
             overlay.remove();
-            const wrapper = document.getElementById("checkout-cta-wrapper");
-            const yampiButton = wrapper.querySelector("a, button, [role='button']");
-            if (yampiButton) yampiButton.click();
+            showAlert("História criada! Em breve processaremos seu pedido.");
         } catch (err) {
             console.error(err);
             showAlert("Falha no envio. Verifique se a API está rodando em " + API_URL);

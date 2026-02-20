@@ -35,11 +35,24 @@ def create_order(pet_name: str, user_email: str, file_names: list[str]) -> str:
         "pet_name": pet_name,
         "user_email": user_email,
         "file_names": file_names,
+        "pagamento": "ok",
         "status": "pendente",
         "created_at": datetime.utcnow().isoformat() + "Z",
     }
     _save_orders(orders)
     return order_id
+
+
+def list_pending_production() -> list[dict]:
+    """Retorna pedidos com pagamento ok e status pendente, ordenados por created_at (mais antigo primeiro)."""
+    orders = _load_orders()
+    pending = [
+        {**o, "order_id": oid}
+        for oid, o in orders.items()
+        if o.get("pagamento") == "ok" and o.get("status") == "pendente"
+    ]
+    pending.sort(key=lambda p: p.get("created_at", ""))
+    return pending
 
 
 def get_order(order_id: str) -> dict | None:

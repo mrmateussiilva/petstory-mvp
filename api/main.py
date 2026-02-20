@@ -1,8 +1,12 @@
 import logging
+import os
 import uvicorn
-from fastapi import FastAPI, Request, HTTPException
+from dotenv import load_dotenv
+from fastapi import FastAPI, HTTPException
 from fastapi import Form, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+
+load_dotenv()
 
 import store
 
@@ -28,7 +32,7 @@ async def create_pet(
     user_email: str = Form(..., alias="user-email"),
     pet_file: list[UploadFile] = File(default=[], alias="pet-file"),
 ):
-    """Cria pedido com status pendente, salva arquivos e retorna order_id para redirecionar ao checkout."""
+    """Cria pedido com pagamento ok e status pendente, salva arquivos."""
     file_names: list[str] = []
     order_id = store.create_order(pet_name=pet_name, user_email=user_email, file_names=[])
     order_dir = store.UPLOADS_DIR / order_id
@@ -40,34 +44,19 @@ async def create_pet(
             path.write_bytes(content)
             file_names.append(f.filename)
     store.update_order_file_names(order_id, file_names)
-    return {
-        "order_id": order_id,
-        "checkout_url": f"checkout.html?order_id={order_id}",
-    }
+    return {"ok": True, "message": "Pedido registrado."}
 
 
 @app.get("/order/{order_id}")
 async def get_order(order_id: str):
-    """Retorna dados do pedido para a página de checkout."""
+    """Retorna dados do pedido."""
     order = store.get_order(order_id)
     if not order:
         raise HTTPException(status_code=404, detail="Pedido não encontrado")
     return order
 
 
-@app.post("/webhook/payment")
-async def payment_webhook(request: Request) -> dict[str, str]:
-    """Recebe notificação de pagamento e atualiza status do pedido para pago."""
-    try:
-        body = await request.json()
-    except Exception:
-        body = {}
-    logger.info("Webhook pagamento recebido: %s", body)
-    order_id = body.get("order_id") or body.get("orderId") or body.get("payment_id") or body.get("paymentId")
-    if order_id and store.update_order_status(order_id, "pago"):
-        logger.info("Pedido %s marcado como pago", order_id)
-    return {"received": "ok"}
-
-
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    host = os.getenv("API_HOST", "0.0.0.0")
+    port = int(os.getenv("API_PORT", "8000"))
+    uvicorn.run("main:app", host=host, port=port, reload=True)

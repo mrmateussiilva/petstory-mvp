@@ -18,6 +18,7 @@
         .checkout-cta-wrapper { position: relative; min-height: 52px; margin-top: 0.5rem; }
         .checkout-cta-overlay { position: absolute; inset: 0; cursor: pointer; z-index: 1; }
         .checkout-cta-overlay:hover { background: rgba(0,0,0,0.03); border-radius: 6px; }
+        .checkout-btn { width: 100%; padding: 0.75rem; background: #2a8; color: #fff; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; pointer-events: none; }
         .alert-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; }
         .alert-backdrop.is-open { opacity: 1; visibility: visible; }
         .alert-box { background: #fff; border-radius: 8px; padding: 1.25rem; max-width: 320px; width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
@@ -47,8 +48,8 @@
                 <input type="file" id="pet-file" name="pet-file" accept="image/*,.pdf" multiple>
             </div>
             <div class="checkout-cta-wrapper" id="checkout-cta-wrapper">
-                <script class="ymp-script" src="https://api.yampi.io/v2/finderbit/public/buy-button/D044679AOQ/js"></script>
-                <div class="checkout-cta-overlay" id="checkout-cta-overlay" title="Preencha os dados e clique para ir ao pagamento"></div>
+                <button type="button" class="checkout-btn" id="checkout-btn">Criar história</button>
+                <div class="checkout-cta-overlay" id="checkout-cta-overlay" title="Preencha os dados e clique para criar sua história"></div>
             </div>
         </form>
     </main>
