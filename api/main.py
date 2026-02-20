@@ -10,6 +10,9 @@ load_dotenv()
 
 import store
 
+MAX_FILES = 5
+MAX_FILE_BYTES = 10 * 1024 * 1024  # 10 MB
+
 logger = logging.getLogger(__name__)
 app = FastAPI()
 app.add_middleware(
@@ -32,15 +35,22 @@ async def create_pet(
     user_email: str = Form(..., alias="user-email"),
     pet_file: list[UploadFile] = File(default=[], alias="pet-file"),
 ):
-    """Cria pedido com pagamento ok e status pendente, salva arquivos."""
+    """Cria pedido com pagamento ok e status pendente, salva arquivos (máx. 5 imagens, 10 MB cada)."""
+    if len(pet_file) > MAX_FILES:
+        raise HTTPException(status_code=400, detail="Máximo 5 imagens.")
     file_names: list[str] = []
     order_id = store.create_order(pet_name=pet_name, user_email=user_email, file_names=[])
     order_dir = store.UPLOADS_DIR / order_id
     order_dir.mkdir(parents=True, exist_ok=True)
     for f in pet_file:
         if f.filename:
-            path = order_dir / f.filename
             content = await f.read()
+            if len(content) > MAX_FILE_BYTES:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Cada arquivo deve ter no máximo 10 MB. ({f.filename})",
+                )
+            path = order_dir / f.filename
             path.write_bytes(content)
             file_names.append(f.filename)
     store.update_order_file_names(order_id, file_names)
