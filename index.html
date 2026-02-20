@@ -13,7 +13,13 @@
         .form-group label { display: block; font-weight: 600; margin-bottom: 0.35rem; }
         .form-group input[type="text"],
         .form-group input[type="email"] { width: 100%; padding: 0.6rem 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
-        .form-group input[type="file"] { width: 100%; padding: 0.5rem; border: 1px dashed #999; border-radius: 6px; background: #f8f8f8; font-size: 0.9rem; }
+        .drop-zone { width: 100%; min-height: 100px; padding: 1rem; border: 2px dashed #999; border-radius: 6px; background: #f8f8f8; font-size: 0.9rem; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; transition: border-color 0.2s, background 0.2s; }
+        .drop-zone:hover { border-color: #4a9; background: #f0faf0; }
+        .drop-zone.dragover { border-color: #4a9; background: #e8f5e9; }
+        .drop-zone .hint { color: #666; font-size: 0.85rem; }
+        .file-list { margin-top: 0.5rem; font-size: 0.85rem; color: #333; }
+        .file-list.empty { color: #999; }
+        input[name="pet-file"] { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
         .form-group input:focus { outline: none; border-color: #4a9; box-shadow: 0 0 0 2px rgba(68, 170, 153, 0.2); }
         .checkout-cta-wrapper { position: relative; min-height: 52px; margin-top: 0.5rem; }
         .checkout-cta-overlay { position: absolute; inset: 0; cursor: pointer; z-index: 1; }
@@ -44,8 +50,13 @@
                 <input type="email" id="user-email" name="user-email" placeholder="seu@email.com" required>
             </div>
             <div class="form-group">
-                <label for="pet-file">Foto ou arquivo do pet</label>
-                <input type="file" id="pet-file" name="pet-file" accept="image/*,.pdf" multiple>
+                <label for="pet-file">Fotos do pet</label>
+                <div class="drop-zone" id="drop-zone" role="button" tabindex="0" aria-label="Arraste até 5 imagens ou clique para selecionar">
+                    <span>Arraste até 5 imagens (máx. 10 MB cada) ou clique para selecionar</span>
+                    <span class="hint">Formatos: JPG, PNG, WebP</span>
+                </div>
+                <input type="file" id="pet-file" name="pet-file" accept="image/*" multiple>
+                <div class="file-list empty" id="file-list" aria-live="polite">Nenhuma imagem selecionada</div>
             </div>
             <div class="checkout-cta-wrapper" id="checkout-cta-wrapper">
                 <button type="button" class="checkout-btn" id="checkout-btn">Criar história</button>
