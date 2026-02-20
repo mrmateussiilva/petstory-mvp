@@ -13,6 +13,16 @@ wheels/
 data/
 uploads/
 
+# Imagens (nunca versionar no remoto)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.svg
+*.ico
+*.bmp
+
 # Variáveis de ambiente (não versionar segredos)
 .env
 
