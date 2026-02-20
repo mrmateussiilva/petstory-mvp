@@ -13,6 +13,9 @@ wheels/
 data/
 uploads/
 
+# PDF (gerados em runtime, não versionar no remoto)
+*.pdf
+
 # Imagens (nunca versionar no remoto)
 *.png
 *.jpg
