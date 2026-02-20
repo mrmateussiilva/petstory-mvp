@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:8000";
+// Em produção (ex.: GitHub Pages), defina window.API_URL no index.html antes deste script.
+const API_URL = typeof window !== "undefined" && window.API_URL ? window.API_URL : "http://localhost:8000";
 const MAX_FILES = 5;
 const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
 
@@ -29,6 +30,30 @@ function formatSize(bytes) {
 }
 
 addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(location.search);
+    const checkout = params.get("checkout");
+    const resultEl = document.getElementById("checkout-result");
+    const formContainer = document.getElementById("form-container");
+    if (checkout && resultEl && formContainer) {
+        const titleEl = document.getElementById("checkout-result-title");
+        const msgEl = document.getElementById("checkout-result-message");
+        if (checkout === "success") {
+            resultEl.classList.add("success");
+            resultEl.classList.add("is-visible");
+            resultEl.removeAttribute("hidden");
+            if (titleEl) titleEl.textContent = "Pagamento confirmado!";
+            if (msgEl) msgEl.textContent = "Em breve processaremos seu pedido e você receberá o livro por email.";
+            formContainer.style.display = "none";
+        } else if (checkout === "cancel") {
+            resultEl.classList.add("cancel");
+            resultEl.classList.add("is-visible");
+            resultEl.removeAttribute("hidden");
+            if (titleEl) titleEl.textContent = "Pagamento cancelado";
+            if (msgEl) msgEl.textContent = "Você pode criar sua história quando quiser.";
+            formContainer.style.display = "none";
+        }
+    }
+
     const petForm = document.getElementById("pet-form");
     const overlay = document.getElementById("checkout-cta-overlay");
     const dropZone = document.getElementById("drop-zone");
@@ -115,7 +140,11 @@ addEventListener("DOMContentLoaded", () => {
                 const data = await res.json().catch(() => ({}));
                 throw new Error(data.detail || "Erro " + res.status);
             }
-            await res.json().catch(() => ({}));
+            const data = await res.json().catch(() => ({}));
+            if (data.checkout_url) {
+                window.location.href = data.checkout_url;
+                return;
+            }
             overlay.remove();
             showAlert("História criada! Em breve processaremos seu pedido.");
         } catch (err) {

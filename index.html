@@ -31,6 +31,12 @@
         .alert-box p { margin: 0 0 1rem; font-size: 0.95rem; line-height: 1.4; color: #333; }
         .alert-box .alert-ok { width: 100%; padding: 0.5rem 1rem; background: #2a8; color: #fff; border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
         .alert-box .alert-ok:hover { background: #269; }
+        .checkout-result { display: none; text-align: center; padding: 2rem 0; }
+        .checkout-result.is-visible { display: block; }
+        .checkout-result h2 { margin-top: 0; }
+        .checkout-result.success { color: #2a8; }
+        .checkout-result.cancel { color: #666; }
+        .checkout-result a { display: inline-block; margin-top: 1rem; color: #2a8; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -39,6 +45,12 @@
         <p>Crie a história do seu pet</p>
     </header>
     <main>
+        <div id="checkout-result" class="checkout-result" hidden aria-live="polite">
+            <h2 id="checkout-result-title"></h2>
+            <p id="checkout-result-message"></p>
+            <a href="?" id="checkout-result-back">Voltar ao formulário</a>
+        </div>
+        <div id="form-container">
         <h2>Crie a história do seu pet</h2>
         <form id="pet-form" action="#" method="post">
             <div class="form-group">
@@ -63,6 +75,7 @@
                 <div class="checkout-cta-overlay" id="checkout-cta-overlay" title="Preencha os dados e clique para criar sua história"></div>
             </div>
         </form>
+        </div>
     </main>
     <footer>
         <p>Pet Story - Crie a história do seu pet</p>
@@ -75,5 +88,7 @@
         </div>
     </div>
 </body>
+<!-- URL pública da API (ngrok ou backend em produção) -->
+<script>window.API_URL = "https://8f00-2804-1b3-9701-dfc6-fada-cff-feff-b8b3.ngrok-free.app";</script>
 <script src="script.js"></script>
 </html>

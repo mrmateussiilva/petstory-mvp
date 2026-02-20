@@ -27,7 +27,7 @@ def _save_orders(orders: dict) -> None:
 
 
 def create_order(pet_name: str, user_email: str, file_names: list[str]) -> str:
-    """Cria pedido com status pendente. Retorna order_id."""
+    """Cria pedido com pagamento e status pendentes. Retorna order_id."""
     orders = _load_orders()
     order_id = str(uuid.uuid4())
     orders[order_id] = {
@@ -35,8 +35,9 @@ def create_order(pet_name: str, user_email: str, file_names: list[str]) -> str:
         "pet_name": pet_name,
         "user_email": user_email,
         "file_names": file_names,
-        "pagamento": "ok",
+        "pagamento": "pendente",
         "status": "pendente",
+        "asaas_checkout_id": None,
         "created_at": datetime.utcnow().isoformat() + "Z",
     }
     _save_orders(orders)
@@ -59,6 +60,36 @@ def get_order(order_id: str) -> dict | None:
     """Retorna pedido ou None se não existir."""
     orders = _load_orders()
     return orders.get(order_id)
+
+
+def get_order_by_asaas_checkout_id(checkout_id: str) -> dict | None:
+    """Retorna o pedido que possui o asaas_checkout_id dado, ou None."""
+    orders = _load_orders()
+    for oid, o in orders.items():
+        if o.get("asaas_checkout_id") == checkout_id:
+            return {**o, "order_id": oid}
+    return None
+
+
+def update_order_asaas_checkout_id(order_id: str, checkout_id: str) -> bool:
+    """Associa o id do checkout Asaas ao pedido. Retorna True se existir."""
+    orders = _load_orders()
+    if order_id not in orders:
+        return False
+    orders[order_id]["asaas_checkout_id"] = checkout_id
+    _save_orders(orders)
+    return True
+
+
+def update_order_pagamento(order_id: str, valor: str) -> bool:
+    """Atualiza o campo pagamento do pedido (ex.: 'ok', 'pendente'). Retorna True se existir."""
+    orders = _load_orders()
+    if order_id not in orders:
+        return False
+    orders[order_id]["pagamento"] = valor
+    orders[order_id]["updated_at"] = datetime.utcnow().isoformat() + "Z"
+    _save_orders(orders)
+    return True
 
 
 def update_order_status(order_id: str, status: str) -> bool:
