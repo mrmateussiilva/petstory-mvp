@@ -2,7 +2,7 @@ import logging
 import os
 import uvicorn
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import BackgroundTasks, FastAPI, HTTPException, Request
 from fastapi import Form, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -10,6 +10,7 @@ load_dotenv()
 
 import store
 import asaas
+from process import processar_pedido
 
 MAX_FILES = 5
 MAX_FILE_BYTES = 10 * 1024 * 1024  # 10 MB
@@ -105,8 +106,8 @@ async def create_pet(
 
 
 @app.post("/webhook/asaas")
-async def webhook_asaas(request: Request):
-    """Recebe eventos do Asaas (ex.: CHECKOUT_PAID). Valida token se ASAAS_WEBHOOK_TOKEN estiver configurado."""
+async def webhook_asaas(request: Request, background_tasks: BackgroundTasks):
+    """Recebe eventos do Asaas (ex.: CHECKOUT_PAID). Valida token; marca como pago e enfileira processamento em background."""
     token_recebido = request.headers.get("asaas-access-token")
     token_esperado = os.getenv("ASAAS_WEBHOOK_TOKEN", "").strip()
     if not asaas.webhook_token_valido(token_recebido, token_esperado):
@@ -115,7 +116,12 @@ async def webhook_asaas(request: Request):
         body = await request.json()
     except Exception:
         return {}
-    asaas.processar_webhook(body)
+    order_id = asaas.processar_webhook(body)
+    if order_id:
+        order = store.get_order(order_id)
+        if order:
+            pedido = {**order, "order_id": order_id}
+            background_tasks.add_task(processar_pedido, pedido)
     return {"received": True}
 
 

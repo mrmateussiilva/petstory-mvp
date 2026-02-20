@@ -105,29 +105,31 @@ def webhook_token_valido(token_recebido: str | None, token_esperado: str | None)
     return (token_recebido or "").strip() == (token_esperado or "").strip()
 
 
-def processar_webhook(body: dict) -> bool:
+def processar_webhook(body: dict) -> str | None:
     """
     Processa POST do webhook Asaas. Trata CHECKOUT_PAID e marca pedido como pago.
-    Retorna True se processou com sucesso, False se evento ignorado.
+    Retorna order_id quando marcou como pago (para processamento em background), None se evento ignorado.
     """
     event = body.get("event")
     if event != "CHECKOUT_PAID":
-        return False
+        return None
 
     checkout = body.get("checkout")
     if not checkout:
-        return False
+        return None
 
     checkout_id = checkout.get("id")
     if not checkout_id:
-        return False
+        return None
 
     order = store.get_order_by_asaas_checkout_id(checkout_id)
     if not order:
-        return False
+        return None
 
     order_id = order.get("order_id")
     if not order_id:
-        return False
+        return None
 
-    return store.update_order_pagamento(order_id, "ok")
+    if not store.update_order_pagamento(order_id, "ok"):
+        return None
+    return order_id
