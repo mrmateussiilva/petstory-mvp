@@ -1,6 +1,6 @@
 """
 Processa pedidos com pagamento ok e status pendente.
-Envia email, gera imagens (Gemini) e marca como processado.
+Gera imagens (Gemini), monta PDF, envia email com anexo e marca como processado.
 Rode com: uv run process.py (na pasta api) ou python -m api.process
 """
 from pathlib import Path
@@ -8,30 +8,51 @@ from pathlib import Path
 import store
 from gemini import PROMPT_LINE_ART, gerar_imagem
 from mail import enviar_email, log_email
+from pdf import gerar_pdf_pedido
 
 EXTENSOES_IMAGEM = (".jpg", ".jpeg", ".png", ".webp")
+LIVRO_PDF_NAME = "livro.pdf"
 
 
 def processar_pedido(pedido: dict) -> None:
     """
-    Processa um pedido: envia email, gera imagens via Gemini, marca como processado.
+    Processa um pedido: gera imagens via Gemini (só as que faltam), monta PDF (ou usa o já gerado),
+    envia email com anexo e marca como processado.
     Em falha (email ou geração), não atualiza o status (pedido será reprocessado).
     """
     order_id = pedido.get("order_id")
     if not order_id:
         return
     try:
-        enviar_email(pedido)
         pasta = store.UPLOADS_DIR / order_id
+        pet_name = pedido.get("pet_name", "")
         file_names = pedido.get("file_names") or []
+
         for filename in file_names:
             path = pasta / filename
             if not path.exists() or path.suffix.lower() not in EXTENSOES_IMAGEM:
                 continue
+            out_path = pasta / f"gerado_{path.stem}.png"
+            if out_path.exists():
+                continue
             image_bytes = path.read_bytes()
             out_bytes = gerar_imagem(image_bytes, PROMPT_LINE_ART)
-            out_path = pasta / f"gerado_{path.stem}.png"
             out_path.write_bytes(out_bytes)
+        store.update_order_images_generated(order_id, True)
+
+        pdf_path = pasta / LIVRO_PDF_NAME
+        if pedido.get("pdf_generated") and pdf_path.exists():
+            pdf_bytes = pdf_path.read_bytes()
+        else:
+            pdf_bytes = b""
+            try:
+                pdf_bytes = gerar_pdf_pedido(pasta, pet_name)
+                pdf_path.write_bytes(pdf_bytes)
+                store.update_order_pdf_generated(order_id, True)
+            except ValueError:
+                pass
+
+        enviar_email(pedido, pdf_bytes=pdf_bytes if pdf_bytes else None)
         store.update_order_status(order_id, "processado")
     except Exception as e:
         msg = f"Pedido {order_id} - falha: {e}"

@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.129.0",
+    "fpdf2>=2.8.0",
     "google-genai>=1.0.0",
     "Pillow>=10.0.0",
     "pydantic>=2.12.5",

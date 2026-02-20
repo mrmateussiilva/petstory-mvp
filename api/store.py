@@ -80,3 +80,23 @@ def update_order_file_names(order_id: str, file_names: list[str]) -> bool:
     orders[order_id]["file_names"] = file_names
     _save_orders(orders)
     return True
+
+
+def update_order_images_generated(order_id: str, value: bool) -> bool:
+    """Marca se as imagens (gerado_*.png) já foram geradas para o pedido."""
+    orders = _load_orders()
+    if order_id not in orders:
+        return False
+    orders[order_id]["images_generated"] = value
+    _save_orders(orders)
+    return True
+
+
+def update_order_pdf_generated(order_id: str, value: bool) -> bool:
+    """Marca se o PDF do pedido já foi gerado."""
+    orders = _load_orders()
+    if order_id not in orders:
+        return False
+    orders[order_id]["pdf_generated"] = value
+    _save_orders(orders)
+    return True
