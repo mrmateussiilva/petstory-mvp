@@ -24,6 +24,38 @@ PROMPT_LINE_ART = (
     "OUTPUT: Clean, printable coloring book page."
 )
 
+# v1: 2 temas fixos para cenas de aventura (1 line art fiel + 2 cenas por foto)
+TEMAS_AVENTURA_V1 = [
+    (
+        "superhero",
+        (
+            "Using this pet photo as reference, create a single coloring book line art illustration. "
+            "The pet must be the protagonist: draw the pet as a superhero saving the city (e.g. cape, heroic pose, simple city skyline or buildings in background).\n\n"
+            "STYLE: Same as a coloring book. Black-and-white outline only. Smooth black lines, medium-to-thick. "
+            "No shading, no gradients, no gray. Pure white background. The pet should remain recognizable (same animal, simplified). "
+            "Keep the scene fun and clear. One pet character as hero, simple background elements."
+        ),
+    ),
+    (
+        "astronaut",
+        (
+            "Using this pet photo as reference, create a single coloring book line art illustration. "
+            "The pet must be the protagonist: draw the pet as an astronaut floating in space (e.g. helmet, suit, stars or planets in background).\n\n"
+            "STYLE: Same as a coloring book. Black-and-white outline only. Smooth black lines, medium-to-thick. "
+            "No shading, no gradients, no gray. Pure white background. The pet should remain recognizable (same animal, simplified). "
+            "Keep the scene fun and clear. One pet character as astronaut, simple space elements."
+        ),
+    ),
+]
+
+
+def prompt_aventura(tema_id: str, pet_name: str) -> str:
+    """Retorna o prompt de aventura para o tema. pet_name pode ser usado em frases futuras."""
+    for tid, prompt in TEMAS_AVENTURA_V1:
+        if tid == tema_id:
+            return prompt
+    raise ValueError(f"Tema desconhecido: {tema_id}")
+
 
 def gerar_imagem(image_bytes: bytes, prompt: str) -> bytes:
     """

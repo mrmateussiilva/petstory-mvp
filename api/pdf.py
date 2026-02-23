@@ -1,5 +1,5 @@
 """
-Gera PDF do pedido: capa (nome do pet), uma página por imagem gerada, contracapa petstory.live.
+Gera PDF do pedido: capa (nome do pet), blocos por foto (line art fiel + 2 cenas aventura), contracapa.
 Usa fontes da pasta api/fonts (qualquer .ttf) nas escritas do livro.
 """
 from pathlib import Path
@@ -8,6 +8,7 @@ from fpdf import FPDF
 
 FONTS_DIR = Path(__file__).resolve().parent / "fonts"
 FONT_FAMILY_LIVRO = "Livro"
+SUFIXOS = ("_fiel", "_aventura_1", "_aventura_2")
 
 
 def _setup_font(pdf: FPDF) -> bool:
@@ -22,12 +23,25 @@ def _setup_font(pdf: FPDF) -> bool:
         return False
 
 
-def gerar_pdf_pedido(pasta: Path, pet_name: str) -> bytes:
+def _imagens_ordenadas(pasta: Path, file_names: list[str]) -> list[Path]:
+    """Retorna lista de paths na ordem: para cada foto (fiel, aventura_1, aventura_2)."""
+    paths: list[Path] = []
+    for filename in file_names:
+        stem = Path(filename).stem
+        for sufixo in SUFIXOS:
+            path = pasta / f"gerado_{stem}{sufixo}.png"
+            if not path.exists():
+                raise ValueError(f"Imagem esperada não encontrada: {path.name}")
+            paths.append(path)
+    return paths
+
+
+def gerar_pdf_pedido(pasta: Path, pet_name: str, file_names: list[str]) -> bytes:
     """
-    Gera PDF com capa (nome do pet), uma página por gerado_*.png e contracapa.
-    Retorna os bytes do PDF. Levanta ValueError se não houver nenhum gerado_*.png.
+    Gera PDF com capa, para cada foto (fiel, aventura_1, aventura_2) e contracapa.
+    file_names define a ordem das fotos. Levanta ValueError se alguma imagem esperada não existir.
     """
-    imagens = sorted(pasta.glob("gerado_*.png"))
+    imagens = _imagens_ordenadas(pasta, file_names)
     if not imagens:
         raise ValueError("Nenhuma imagem gerada para o pedido")
 
@@ -45,7 +59,7 @@ def gerar_pdf_pedido(pasta: Path, pet_name: str) -> bytes:
     pdf.set_font(font_name, "", size=14)
     pdf.cell(0, 10, "Livro de colorir", align="C", new_x="LMARGIN", new_y="NEXT")
 
-    # Uma página por imagem
+    # Blocos por foto: fiel, aventura_1, aventura_2
     for path in imagens:
         pdf.add_page()
         pdf.image(str(path), x=15, y=20, w=pdf.epw, h=pdf.eph, keep_aspect_ratio=True)
