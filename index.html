@@ -1,52 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Story - Crie a história do seu pet</title>
+    <title>PetStory | Transforme seu pet em um livro de colorir</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Pet Story</h1>
-        <p>Crie a história do seu pet</p>
-    </header>
     <main>
         <div id="checkout-result" class="checkout-result" hidden aria-live="polite">
             <h2 id="checkout-result-title"></h2>
             <p id="checkout-result-message"></p>
             <a href="?" id="checkout-result-back">Voltar ao formulário</a>
         </div>
-        <div id="form-container">
-        <h2>Crie a história do seu pet</h2>
-        <form id="pet-form" action="#" method="post">
-            <div class="form-group">
-                <label for="pet-name">Nome do pet</label>
-                <input type="text" id="pet-name" name="pet-name" placeholder="Ex: Rex, Luna..." required>
-            </div>
-            <div class="form-group">
-                <label for="user-email">Email do usuário</label>
-                <input type="email" id="user-email" name="user-email" placeholder="seu@email.com" required>
-            </div>
-            <div class="form-group">
-                <label for="pet-file">Fotos do pet</label>
-                <div class="drop-zone" id="drop-zone" role="button" tabindex="0" aria-label="Arraste até 5 imagens ou clique para selecionar">
-                    <span>Arraste até 5 imagens (máx. 10 MB cada) ou clique para selecionar</span>
-                    <span class="hint">Formatos: JPG, PNG, WebP</span>
+        <div id="form-container" class="landing-shell">
+            <section class="hero" aria-labelledby="hero-title">
+                <h1 id="hero-title">Transforme seu pet em um livro de colorir único 🐾</h1>
+                <p class="hero-subtitle">
+                    Envie as fotos e receba um livro personalizado para imprimir e pintar.
+                </p>
+            </section>
+
+            <section class="form-card-section" aria-labelledby="form-title">
+                <div class="form-card">
+                    <h2 id="form-title">Comece a criar</h2>
+                    <p class="form-intro">Leva menos de 1 minuto para enviar.</p>
+                    <form id="pet-form" action="#" method="post">
+                        <div class="form-group">
+                            <label for="pet-name">Nome do pet</label>
+                            <input type="text" id="pet-name" name="pet-name" placeholder="Ex: Rex, Luna..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-email">Email</label>
+                            <input type="email" id="user-email" name="user-email" placeholder="seu@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pet-file">Fotos do pet</label>
+                            <p class="upload-copy">Envie até 5 fotos do seu pet para criar seu livro personalizado.</p>
+                            <div class="drop-zone" id="drop-zone" role="button" tabindex="0" aria-label="Arraste até 5 imagens ou clique para selecionar">
+                                <span>Arraste até 5 imagens (máx. 10 MB cada) ou clique para selecionar</span>
+                                <span class="hint">Formatos: JPG, PNG, WebP</span>
+                            </div>
+                            <input type="file" id="pet-file" name="pet-file" accept="image/*" multiple>
+                            <div class="file-list empty" id="file-list" aria-live="polite">Nenhuma imagem selecionada</div>
+                        </div>
+                        <div class="checkout-cta-wrapper" id="checkout-cta-wrapper">
+                            <button type="button" class="checkout-btn" id="checkout-btn">Criar meu livro 🐾</button>
+                            <div class="checkout-cta-overlay" id="checkout-cta-overlay" title="Preencha os dados e clique para criar seu livro"></div>
+                        </div>
+                    </form>
                 </div>
-                <input type="file" id="pet-file" name="pet-file" accept="image/*" multiple>
-                <div class="file-list empty" id="file-list" aria-live="polite">Nenhuma imagem selecionada</div>
-            </div>
-            <div class="checkout-cta-wrapper" id="checkout-cta-wrapper">
-                <button type="button" class="checkout-btn" id="checkout-btn">Criar história</button>
-                <div class="checkout-cta-overlay" id="checkout-cta-overlay" title="Preencha os dados e clique para criar sua história"></div>
-            </div>
-        </form>
+            </section>
         </div>
     </main>
     <footer>
-        <p>Pet Story - Crie a história do seu pet</p>
-        <a href="https://www.finderbit.com.br" target="_blank">made by finderbit</a>
+        <p>© 2026 PetStory</p>
     </footer>
     <div class="alert-backdrop" id="custom-alert" role="alertdialog" aria-modal="true" aria-labelledby="alert-message" hidden>
         <div class="alert-box">
