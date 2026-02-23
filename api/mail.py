@@ -12,11 +12,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-EMAIL_LOG = Path(__file__).resolve().parent / "email.log"
+EMAIL_LOG = Path(__file__).resolve().parent / "logs" / "email.log"
 
 
 def _log(message: str) -> None:
     """Append one line to email.log with timestamp."""
+    EMAIL_LOG.parent.mkdir(parents=True, exist_ok=True)
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(EMAIL_LOG, "a", encoding="utf-8") as f:
         f.write(f"{ts} - {message}\n")

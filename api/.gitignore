@@ -31,3 +31,4 @@ uploads/
 
 # Log de envio de email
 email.log
+logs/

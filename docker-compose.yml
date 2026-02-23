@@ -9,3 +9,4 @@ services:
     volumes:
       - ./api/data:/app/data
       - ./api/uploads:/app/uploads
+      - ./api/logs:/app/logs
