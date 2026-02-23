@@ -1,6 +1,7 @@
 import logging
 import os
 import uvicorn
+from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 from fastapi import BackgroundTasks, FastAPI, HTTPException, Request
 from fastapi import Form, File, UploadFile
@@ -16,7 +17,17 @@ MAX_FILES = 5
 MAX_FILE_BYTES = 10 * 1024 * 1024  # 10 MB
 
 logger = logging.getLogger(__name__)
-app = FastAPI()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    prod = os.getenv("ASAAS_PRODUCTION", "false").lower() in ("true", "1")
+    msg = "PetStory API — Modo: produção (Asaas)" if prod else "PetStory API — Modo: desenvolvimento (Asaas sandbox)"
+    print(msg, flush=True)
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
