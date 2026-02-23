@@ -1,0 +1,11 @@
+services:
+  api:
+    build: .
+    image: petstory-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - api/.env
+    volumes:
+      - ./api/data:/app/data
+      - ./api/uploads:/app/uploads

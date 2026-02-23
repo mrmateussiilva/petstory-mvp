@@ -1,0 +1,12 @@
+# Build context: exclude from COPY api/
+.git
+*.pyc
+__pycache__
+api/__pycache__
+api/.env
+api/.venv
+api/uploads
+api/email.log
+*.md
+.gitignore
+.dockerignore
