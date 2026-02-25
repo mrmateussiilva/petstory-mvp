@@ -1,72 +1,399 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetStory | Transforme seu pet em um livro de colorir</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>PetStory | Eternize seu pet em um livro de memórias</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <main>
-        <div id="checkout-result" class="checkout-result" hidden aria-live="polite">
-            <h2 id="checkout-result-title"></h2>
-            <p id="checkout-result-message"></p>
-            <a href="?" id="checkout-result-back">Voltar ao formulário</a>
-        </div>
-        <div id="form-container" class="landing-shell">
-            <section class="hero" aria-labelledby="hero-title">
-                <h1 id="hero-title">Transforme seu pet em um livro de colorir único 🐾</h1>
-                <p class="hero-subtitle">
-                    Envie as fotos e receba um livro personalizado para imprimir e pintar.
-                </p>
-            </section>
 
-            <section class="form-card-section" aria-labelledby="form-title">
-                <div class="form-card">
-                    <h2 id="form-title">Crie seu livro</h2>
-                    <p class="form-intro">Leva menos de 1 minuto para enviar.</p>
-                    <form id="pet-form" action="#" method="post">
+<body>
+
+    <!-- ── Header ─────────────────────────── -->
+    <header class="header" id="site-header">
+        <div class="container">
+            <div class="logo">🐾 PetStory</div>
+            <span class="nav-badge">⏰ Por tempo limitado!</span>
+            <a href="#form-container" class="btn btn-pink">Criar meu livro</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- ── Hero ───────────────────────────── -->
+        <section style="background: var(--bg); padding-top: 4rem; padding-bottom: 4rem;">
+            <div class="container">
+                <div class="hero-grid">
+
+                    <!-- Texto -->
+                    <div>
+                        <div class="eyebrow">🎨 Arte exclusiva para o seu pet!</div>
+                        <h1>Eternize seu pet em um <span class="underline">livro de memórias</span></h1>
+
+                        <div class="price-row">
+                            <span class="price-was">R$ 67</span>
+                            <span class="price-now">R$ 29,90</span>
+                            <span class="off-badge">55% OFF</span>
+                        </div>
+
+                        <p class="hero-desc">
+                            Crie um livro de memórias único do seu pet. <strong>Imprima, pinte e guarde para
+                                sempre.</strong>
+                            Perfeito para presentear quem você ama ou para relaxar colorindo momentos especiais.
+                        </p>
+
+                        <div class="cta-row">
+                            <a href="#form-container" class="btn btn-pink">CRIAR MEU LIVRO AGORA – R$ 29,90 🐾</a>
+                            <a href="#como-funciona" class="btn btn-yellow">COMO FUNCIONA? ✨</a>
+                        </div>
+
+                        <div class="trust-row">
+                            <div class="trust-badge">⭐⭐⭐⭐⭐ Qualidade Garantida</div>
+                            <div class="trust-badge">🟢 100% Satisfação</div>
+                        </div>
+                        <div
+                            style="margin-top: 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: .8rem; color: var(--muted); font-weight: 700;">
+                            <span>⚡ Entrega em 5-10 minutos</span>
+                            <span>📩 PDF instantâneo no e-mail</span>
+                            <span>🖨️ Imprima quantas vezes quiser</span>
+                        </div>
+                    </div>
+
+                    <!-- Slider Before/After -->
+                    <div>
+                        <div class="hero-img-card" style="overflow: hidden; position: relative; user-select: none;">
+                            <div id="compare-slider"
+                                style="position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; cursor: col-resize;">
+                                <!-- Imagem COM efeito (base, toda visível) -->
+                                <img src="image_com_efeito.png" alt="Pet com traçado artístico"
+                                    style="display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none;">
+                                <!-- Imagem SEM efeito (original, clipada pelo slider) -->
+                                <div id="compare-before"
+                                    style="position: absolute; inset: 0; width: 50%; overflow: hidden;">
+                                    <img src="sem_efeito.png" alt="Foto original do pet"
+                                        style="display: block; width: 100%; max-width: none; height: 100%; object-fit: cover; pointer-events: none;"
+                                        id="compare-before-img">
+                                </div>
+                                <!-- Handle (alça divisora) -->
+                                <div id="compare-handle" style="
+                                    position: absolute;
+                                    top: 0; bottom: 0;
+                                    left: 50%;
+                                    transform: translateX(-50%);
+                                    width: 4px;
+                                    background: white;
+                                    border: 2px solid #1a1a1a;
+                                    cursor: col-resize;
+                                    z-index: 10;
+                                ">
+                                    <div style="
+                                        position: absolute;
+                                        top: 50%;
+                                        left: 50%;
+                                        transform: translate(-50%, -50%);
+                                        width: 44px;
+                                        height: 44px;
+                                        background: white;
+                                        border: 2.5px solid #1a1a1a;
+                                        border-radius: 50%;
+                                        box-shadow: 4px 4px 0 #1a1a1a;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        font-size: 1.1rem;
+                                        font-weight: 900;
+                                    ">⇔</div>
+                                </div>
+                                <!-- Labels -->
+                                <span style="
+                                    position: absolute; bottom: 12px; left: 14px;
+                                    background: white; border: 2px solid #1a1a1a;
+                                    border-radius: 50px; padding: .25rem .75rem;
+                                    font-size: .75rem; font-weight: 800;
+                                    box-shadow: 2px 2px 0 #1a1a1a;
+                                    z-index: 9;
+                                ">📸 Foto</span>
+                                <span style="
+                                    position: absolute; bottom: 12px; right: 14px;
+                                    background: var(--pink); color: white; border: 2px solid #1a1a1a;
+                                    border-radius: 50px; padding: .25rem .75rem;
+                                    font-size: .75rem; font-weight: 800;
+                                    box-shadow: 2px 2px 0 #1a1a1a;
+                                    z-index: 9;
+                                ">🎨 Arte</span>
+                            </div>
+                        </div>
+                        <p
+                            style="text-align: center; margin-top: .75rem; font-size: .82rem; color: var(--muted); font-weight: 700;">
+                            ← Arraste para comparar →</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Como funciona ──────────────────── -->
+        <section id="como-funciona" class="bg-white">
+            <div class="container">
+                <h2>Como funciona a mágica? ✨</h2>
+                <div class="steps-grid">
+                    <div class="card" style="text-align: center;">
+                        <div class="step-icon" style="margin: 0 auto 1.25rem;">📸</div>
+                        <div class="step-title">Envie as fotos</div>
+                        <p style="font-size: .9rem; color: var(--muted);">Suba até 5 fotos favoritas do seu pet aqui no
+                            site. Quanto mais, melhor!</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div class="step-icon" style="margin: 0 auto 1.25rem; background: var(--pink-soft);">🪄</div>
+                        <div class="step-title">Criamos a arte</div>
+                        <p style="font-size: .9rem; color: var(--muted);">Nossa IA transforma as fotos em traços lindos
+                            e detalhados para colorir.</p>
+                    </div>
+                    <div class="card" style="text-align: center;">
+                        <div class="step-icon" style="margin: 0 auto 1.25rem; background: var(--teal);">💌</div>
+                        <div class="step-title">Você recebe!</div>
+                        <p style="font-size: .9rem; color: var(--muted);">PDF pronto para imprimir direto no seu e-mail.
+                            Sem espera!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── O que você recebe ───────────────── -->
+        <section class="bg-pink">
+            <div class="container">
+                <h2>O que está incluso 🎁</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="card" style="display: flex; gap: 1.25rem; align-items: flex-start;">
+                        <span style="font-size: 3rem; flex-shrink: 0;">📄</span>
+                        <div>
+                            <h3 style="font-family: 'Fredoka One', cursive; font-size: 1.3rem; margin-bottom: .4rem;">
+                                Livro em PDF</h3>
+                            <p style="font-size: .875rem; color: var(--muted);">Personalizado com as fotos do seu pet
+                                transformadas em arte exclusiva.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="display: flex; gap: 1.25rem; align-items: flex-start;">
+                        <span style="font-size: 3rem; flex-shrink: 0;">🖍️</span>
+                        <div>
+                            <h3 style="font-family: 'Fredoka One', cursive; font-size: 1.3rem; margin-bottom: .4rem;">
+                                Alta Resolução</h3>
+                            <p style="font-size: .875rem; color: var(--muted);">Formato A4 otimizado para imprimir em
+                                casa ou em qualquer gráfica.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="margin-top: 1.5rem; text-align: center; background: white;">
+                    <h3 style="font-family: 'Fredoka One', cursive; font-size: 1.4rem;">🎁 Presente perfeito para quem
+                        você ama!</h3>
+                    <p style="margin-top: .5rem; font-size: .9rem; color: var(--muted);">Crie com o pet de um amigo e
+                        envie por e-mail — um presente único e inesquecível.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Benefícios ──────────────────────── -->
+        <section class="bg-white">
+            <div class="container">
+                <h2>Por que você vai amar? ❤️</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <span style="font-size: 2rem;">❤️</span>
+                        <h4>Memória Eterna</h4>
+                        <p>Guarde os traços do seu melhor amigo para sempre.</p>
+                    </div>
+                    <div class="benefit-card" style="background: var(--yellow);">
+                        <span style="font-size: 2rem;">🎁</span>
+                        <h4>Presente Único</h4>
+                        <p>Surpreenda alguém com algo que só existe para eles.</p>
+                    </div>
+                    <div class="benefit-card" style="background: var(--teal);">
+                        <span style="font-size: 2rem;">🎨</span>
+                        <h4>Lazer Criativo</h4>
+                        <p>Colorir é relaxante e conecta você ao pet.</p>
+                    </div>
+                    <div class="benefit-card" style="background: var(--pink-soft);">
+                        <span style="font-size: 2rem;">⚡</span>
+                        <h4>Super Rápido</h4>
+                        <p>Receba em minutos direto no seu e-mail.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Preço ───────────────────────────── -->
+        <section class="bg-yellow">
+            <div class="container pricing-wrapper">
+                <div class="card pricing-card" style="text-align: center;">
+                    <div class="pricing-pill">🌸 PROMOÇÃO ESPECIAL</div>
+                    <h3 style="font-family: 'Fredoka One', cursive; font-size: 1.75rem; margin-bottom: .5rem;">Kit
+                        Digital PetStory</h3>
+                    <p style="color: var(--muted); font-size: .9rem; margin-bottom: 1.25rem;">Acesso vitalício ao livro
+                        personalizado.</p>
+                    <div class="price-row" style="justify-content: center;">
+                        <span class="price-was">R$ 67,00</span>
+                        <span class="price-now" style="font-size: 4rem;">R$ 29,90</span>
+                        <span class="off-badge">55% OFF</span>
+                    </div>
+                    <p style="font-weight: 800; color: var(--teal-d); margin-bottom: 2rem;">PAGAMENTO ÚNICO · ACESSO
+                        VITALÍCIO</p>
+                    <a href="#form-container" class="btn btn-pink btn-block" style="font-size: 1.05rem;">
+                        QUERO MEU LIVRO AGORA →
+                    </a>
+                    <p style="margin-top: 1rem; font-size: .78rem; color: var(--muted); font-weight: 600;">🔒 Pagamento
+                        100% seguro via Cartão ou Pix</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Formulário ──────────────────────── -->
+        <section id="form-container" class="bg-pink">
+            <div class="container">
+                <h2>Faça seu pedido aqui 🐾</h2>
+                <div class="card form-card">
+                    <p style="text-align: center; color: var(--muted); font-weight: 700; margin-bottom: 2rem;">Leva
+                        menos de 1 minuto para enviar.</p>
+                    <form id="pet-form">
                         <div class="form-group">
-                            <label for="pet-name">Nome do pet</label>
+                            <label for="pet-name">Nome do pet 🐾</label>
                             <input type="text" id="pet-name" name="pet-name" placeholder="Ex: Rex, Luna..." required>
                         </div>
                         <div class="form-group">
-                            <label for="user-email">Email</label>
-                            <input type="email" id="user-email" name="user-email" placeholder="seu@email.com" required>
+                            <label for="user-email">Seu e-mail 📩</label>
+                            <input type="email" id="user-email" name="user-email"
+                                placeholder="onde vamos entregar o livro?" required>
                         </div>
                         <div class="form-group">
-                            <label for="pet-file">Fotos do pet</label>
-                            <p class="upload-copy">Envie até 5 fotos do seu pet para criar seu livro personalizado.</p>
-                            <div class="drop-zone" id="drop-zone" role="button" tabindex="0" aria-label="Arraste até 5 imagens ou clique para selecionar">
-                                <span>Arraste até 5 imagens (máx. 10 MB cada) ou clique para selecionar</span>
-                                <span class="hint">Formatos: JPG, PNG, WebP</span>
+                            <label>Fotos do pet (máx. 5) 📸</label>
+                            <div class="drop-zone" id="drop-zone" role="button" tabindex="0">
+                                <span style="font-weight: 800;">📁 Clique ou arraste as fotos aqui</span>
+                                <p style="margin-top: .4rem; font-size: .78rem; color: var(--muted); font-weight: 600;">
+                                    JPG, PNG ou WebP · até 10 MB cada</p>
                             </div>
-                            <input type="file" id="pet-file" name="pet-file" accept="image/*" multiple>
-                            <div class="file-list empty" id="file-list" aria-live="polite">Nenhuma imagem selecionada</div>
+                            <input type="file" id="pet-file" name="pet-file" accept="image/*" multiple
+                                style="display: none;">
+                            <div class="file-list empty" id="file-list">Nenhuma foto selecionada</div>
                         </div>
-                        <div class="checkout-cta-wrapper" id="checkout-cta-wrapper">
-                            <button type="button" class="checkout-btn" id="checkout-btn">Criar meu livro de colorir 🐾</button>
-                            <div class="checkout-cta-overlay" id="checkout-cta-overlay" title="Preencha os dados e clique para criar seu livro de colorir"></div>
+                        <div class="checkout-cta-wrapper" style="margin-top: 2rem;">
+                            <button type="button" class="btn btn-pink btn-block" id="checkout-btn"
+                                style="font-size: 1.05rem; padding: 1.1rem;">
+                                CRIAR MEU LIVRO DE COLORIR 🐾
+                            </button>
+                            <div class="checkout-cta-overlay" id="checkout-cta-overlay"></div>
                         </div>
                     </form>
                 </div>
-            </section>
+            </div>
+        </section>
+
+        <!-- ── FAQ ────────────────────────────── -->
+        <section class="bg-white">
+            <div class="container">
+                <h2>Dúvidas? A gente responde! 🤔</h2>
+                <div class="faq-wrap">
+                    <div class="faq-item">
+                        <div class="faq-header">Quais tipos de pets posso enviar? <span>+</span></div>
+                        <div class="faq-content">Qualquer animal! Cães, gatos, coelhos, passarinhos... nossa arte se
+                            adapta a qualquer pet.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header">Quantas fotos preciso enviar? <span>+</span></div>
+                        <div class="faq-content">De 1 a 5 fotos. Recomendamos fotos com boa iluminação e que mostrem bem
+                            o rosto do pet.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header">Como vou receber o livro? <span>+</span></div>
+                        <div class="faq-content">Enviamos um arquivo PDF de alta resolução direto no e-mail que você
+                            cadastrou.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header">O pagamento é seguro? <span>+</span></div>
+                        <div class="faq-content">Sim! Usamos as plataformas mais seguras do Brasil. Pagamento via Cartão
+                            ou Pix.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header">Tenho garantia de satisfação? <span>+</span></div>
+                        <div class="faq-content">Sim! 7 dias de garantia. Se não gostar, devolvemos seu dinheiro sem
+                            perguntas.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CTA Final ───────────────────────── -->
+        <section class="bg-white" style="padding-bottom: 6rem;">
+            <div class="container">
+                <div class="cta-banner">
+                    <h2>Pronto para criar memórias? 🐾</h2>
+                    <p>Seu pet merece ser eternizado com muito carinho e amor.</p>
+                    <a href="#form-container" class="btn btn-white" style="font-size: 1.1rem; padding: 1.1rem 3rem;">
+                        QUERO COMEÇAR AGORA →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modals (maintained for functionality) -->
+        <div id="checkout-result" class="alert-backdrop" hidden>
+            <div class="alert-box">
+                <h2 id="checkout-result-title" style="margin-bottom: .75rem; font-size: 1.25rem;"></h2>
+                <p id="checkout-result-message"></p>
+                <a href="?" class="btn btn-pink btn-block" style="margin-top: 1rem;">Voltar</a>
+            </div>
+        </div>
+
+        <div class="alert-backdrop" id="custom-alert" hidden>
+            <div class="alert-box">
+                <p id="alert-message"></p>
+                <button type="button" class="btn btn-pink btn-block" id="alert-ok">OK</button>
+            </div>
         </div>
     </main>
+
     <footer>
-        <p>© 2026 PetStory</p>
+        <p>© 2026 PetStory · Feito com ❤️ para os apaixonados por pets</p>
+        <p style="margin-top: .4rem; font-size: .78rem;">Política de Privacidade · Termos de Uso</p>
     </footer>
-    <div class="alert-backdrop" id="custom-alert" role="alertdialog" aria-modal="true" aria-labelledby="alert-message" hidden>
-        <div class="alert-box">
-            <p id="alert-message"></p>
-            <button type="button" class="alert-ok" id="alert-ok">OK</button>
-        </div>
-    </div>
+
+    <script>window.API_URL = "https://petstory.finderbit.com.br";</script>
+    <script src="script.js"></script>
+    <script>
+        // ── Before/After Comparison Slider ──────────────────────────
+        (function () {
+            const slider = document.getElementById('compare-slider');
+            const before = document.getElementById('compare-before');
+            const beforeImg = document.getElementById('compare-before-img');
+            const handle = document.getElementById('compare-handle');
+            if (!slider) return;
+
+            let dragging = false;
+
+            function setPosition(clientX) {
+                const rect = slider.getBoundingClientRect();
+                let pct = (clientX - rect.left) / rect.width;
+                pct = Math.min(Math.max(pct, 0.02), 0.98);
+                const pctStr = (pct * 100) + '%';
+
+                before.style.width = pctStr;
+                beforeImg.style.width = (1 / pct * 100) + '%';
+                handle.style.left = pctStr;
+                handle.style.transform = 'translateX(-50%)';
+            }
+
+            // Mouse
+            handle.addEventListener('mousedown', e => { dragging = true; e.preventDefault(); });
+            window.addEventListener('mousemove', e => { if (dragging) setPosition(e.clientX); });
+            window.addEventListener('mouseup', () => { dragging = false; });
+
+            // Touch
+            handle.addEventListener('touchstart', e => { dragging = true; e.preventDefault(); }, { passive: false });
+            window.addEventListener('touchmove', e => { if (dragging) setPosition(e.touches[0].clientX); }, { passive: true });
+            window.addEventListener('touchend', () => { dragging = false; });
+
+            // Click anywhere on slider also seeks
+            slider.addEventListener('click', e => setPosition(e.clientX));
+        })();
+    </script>
 </body>
-<!-- URL pública da API (ngrok ou backend em produção) -->
-<script>window.API_URL = "https://petstory.finderbit.com.br";</script>
-<script src="script.js"></script>
+
 </html>
