@@ -1,22 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap');
 
+/* ══════ TOKENS ══════ */
 :root {
   --bg: #fff9f5;
   --pink: #ff85a2;
   --pink-soft: #ffd6e0;
   --yellow: #ffe27a;
-  --yellow-d: #f5c400;
   --teal: #a8e6cf;
   --teal-d: #52b788;
   --text: #1a1a1a;
   --muted: #666;
-  --border: 3px solid #1a1a1a;
   --r: 14px;
   --r-lg: 20px;
   --shadow-btn: 4px 4px 0 #1a1a1a;
   --max-w: 960px;
 }
 
+/* ══════ RESET ══════ */
 *,
 *::before,
 *::after {
@@ -27,40 +27,70 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
+/* ══════ BASE (mobile first) ══════ */
 body {
   font-family: 'Nunito', sans-serif;
   color: var(--text);
   background-color: var(--bg);
-  /* polka dot background */
   background-image: radial-gradient(circle, #ffd6e0 1.5px, transparent 1.5px);
   background-size: 22px 22px;
+  line-height: 1.6;
+  /* prevent horizontal scroll on mobile */
+  overflow-x: hidden;
 }
 
 .container {
   width: 100%;
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
 }
 
+/* Sections: menor padding no mobile */
 section {
-  padding: 5rem 0;
+  padding: 3rem 0;
 }
 
+@media (min-width: 640px) {
+  section {
+    padding: 4rem 0;
+  }
+}
+
+@media (min-width: 900px) {
+  section {
+    padding: 5rem 0;
+  }
+}
+
+/* ══════ TYPOGRAPHY (mobile → desktop) ══════ */
 h1 {
   font-family: 'Fredoka One', cursive;
-  font-size: clamp(2.6rem, 6vw, 4rem);
+  font-size: 2.2rem;
   font-weight: 400;
   line-height: 1.15;
   color: var(--text);
-  position: relative;
+}
+
+@media (min-width: 640px) {
+  h1 {
+    font-size: 2.8rem;
+  }
+}
+
+@media (min-width: 900px) {
+  h1 {
+    font-size: 3.5rem;
+  }
 }
 
 h1 .underline {
@@ -81,60 +111,104 @@ h1 .underline::after {
 
 h2 {
   font-family: 'Fredoka One', cursive;
-  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-size: 1.75rem;
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   color: var(--text);
 }
 
-/* ---------- Header ---------- */
+@media (min-width: 640px) {
+  h2 {
+    font-size: 2.1rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media (min-width: 900px) {
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+h3 {
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+/* ══════ HEADER ══════ */
 .header {
   position: sticky;
   top: 0;
   z-index: 100;
   background: var(--pink-soft);
   border-bottom: 3px solid #1a1a1a;
-  padding: .75rem 0;
+  padding: .65rem 0;
 }
 
 .header .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: .5rem;
 }
 
 .logo {
   font-family: 'Fredoka One', cursive;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: var(--text);
+  flex-shrink: 0;
 }
 
+@media (min-width: 640px) {
+  .logo {
+    font-size: 1.8rem;
+  }
+}
+
+/* oculta o nav-badge em telas muito pequenas */
 .nav-badge {
   background: var(--yellow);
   border: 2px solid #1a1a1a;
   border-radius: 50px;
-  padding: .3rem 1rem;
+  padding: .25rem .75rem;
   font-weight: 800;
-  font-size: .85rem;
-  box-shadow: 3px 3px 0 #1a1a1a;
+  font-size: .75rem;
+  box-shadow: 2px 2px 0 #1a1a1a;
+  display: none;
 }
 
-/* ---------- Buttons ---------- */
+@media (min-width: 500px) {
+  .nav-badge {
+    display: inline-block;
+  }
+}
+
+/* ══════ BUTTONS ══════ */
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  padding: 1rem 1.75rem;
+  justify-content: center;
+  gap: .4rem;
+  padding: .85rem 1.25rem;
   border-radius: var(--r);
   font-family: 'Nunito', sans-serif;
   font-weight: 900;
-  font-size: 1rem;
+  font-size: .9rem;
   text-decoration: none;
   cursor: pointer;
-  border: var(--border);
+  border: 2.5px solid #1a1a1a;
   box-shadow: var(--shadow-btn);
   transition: transform .12s, box-shadow .12s;
   line-height: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 640px) {
+  .btn {
+    padding: 1rem 1.75rem;
+    font-size: 1rem;
+  }
 }
 
 .btn:active {
@@ -169,15 +243,32 @@ h2 {
 
 .btn-block {
   width: 100%;
-  justify-content: center;
 }
 
-/* ---------- Hero ---------- */
+/* ══════ HERO ══════ */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 3rem;
-  align-items: center;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 760px) {
+  .hero-grid {
+    grid-template-columns: 1.15fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+}
+
+/* Em mobile, coloca o slider ANTES do texto */
+.hero-grid>div:last-child {
+  order: -1;
+}
+
+@media (min-width: 760px) {
+  .hero-grid>div:last-child {
+    order: 0;
+  }
 }
 
 .eyebrow {
@@ -185,23 +276,23 @@ h2 {
   border: 2px solid #1a1a1a;
   border-radius: 50px;
   display: inline-block;
-  padding: .35rem .9rem;
+  padding: .3rem .8rem;
   font-weight: 800;
-  font-size: .85rem;
-  margin-bottom: 1.25rem;
+  font-size: .8rem;
+  margin-bottom: 1rem;
   box-shadow: 2px 2px 0 #1a1a1a;
 }
 
 .price-row {
   display: flex;
   align-items: baseline;
-  gap: .6rem;
-  margin: 1.5rem 0;
+  gap: .5rem;
+  margin: 1.25rem 0;
   flex-wrap: wrap;
 }
 
 .price-was {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: 800;
   text-decoration: line-through;
   color: var(--muted);
@@ -209,15 +300,21 @@ h2 {
 
 .price-now {
   font-family: 'Fredoka One', cursive;
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: var(--pink);
   line-height: 1;
+}
+
+@media (min-width: 640px) {
+  .price-now {
+    font-size: 3rem;
+  }
 }
 
 .off-badge {
   background: var(--pink);
   color: white;
-  font-size: .75rem;
+  font-size: .72rem;
   font-weight: 900;
   border-radius: 6px;
   padding: .25rem .5rem;
@@ -226,50 +323,96 @@ h2 {
 }
 
 .hero-desc {
-  font-size: .95rem;
+  font-size: .9rem;
   color: var(--muted);
-  margin-bottom: 1.75rem;
-  max-width: 40ch;
+  margin-bottom: 1.5rem;
   line-height: 1.7;
 }
 
+@media (min-width: 640px) {
+  .hero-desc {
+    font-size: .95rem;
+  }
+}
+
+/* CTAs: stack no mobile, lado a lado no ≥480px */
 .cta-row {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.cta-row .btn {
+  width: 100%;
+  text-align: center;
+}
+
+@media (min-width: 480px) {
+  .cta-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .cta-row .btn {
+    width: auto;
+  }
 }
 
 /* Trust badges */
 .trust-row {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
   flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: 1.25rem;
 }
 
 .trust-badge {
   background: white;
   border: 2px solid #1a1a1a;
   border-radius: var(--r);
-  padding: .6rem 1rem;
+  padding: .5rem .85rem;
   display: flex;
   align-items: center;
-  gap: .5rem;
-  font-size: .82rem;
+  gap: .4rem;
+  font-size: .78rem;
   font-weight: 700;
   box-shadow: 3px 3px 0 #1a1a1a;
+}
+
+.mini-perks {
+  margin-top: .85rem;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  font-size: .78rem;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+@media (min-width: 480px) {
+  .mini-perks {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: .8rem;
+  }
 }
 
 /* Hero image card */
 .hero-img-card {
   border: 3px solid #1a1a1a;
   border-radius: var(--r-lg);
-  box-shadow: 8px 8px 0 #1a1a1a;
+  box-shadow: 6px 6px 0 #1a1a1a;
   overflow: hidden;
   background: white;
 }
 
-/* ---------- Section BGs ---------- */
+@media (min-width: 640px) {
+  .hero-img-card {
+    box-shadow: 8px 8px 0 #1a1a1a;
+  }
+}
+
+/* ══════ SECTION BGs ══════ */
 .bg-white {
   background: white;
 }
@@ -282,74 +425,118 @@ h2 {
   background: #fffbe0;
 }
 
-/* ---------- Cards ---------- */
+/* ══════ CARDS ══════ */
 .card {
   background: white;
   border: 2.5px solid #1a1a1a;
   border-radius: var(--r-lg);
-  box-shadow: 5px 5px 0 #1a1a1a;
-  padding: 2rem;
+  box-shadow: 4px 4px 0 #1a1a1a;
+  padding: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 2rem;
+    box-shadow: 5px 5px 0 #1a1a1a;
+  }
 }
 
 .card:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 #1a1a1a;
+  box-shadow: 6px 6px 0 #1a1a1a;
   transition: all .2s;
 }
 
-/* Steps */
+/* ══════ STEPS ══════ */
 .steps-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
 }
 
 .step-icon {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   background: var(--yellow);
   border: 2px solid #1a1a1a;
-  border-radius: 16px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  margin-bottom: 1.25rem;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+  .step-icon {
+    width: 64px;
+    height: 64px;
+    font-size: 2rem;
+    margin: 0 auto 1.25rem;
+  }
 }
 
 .step-title {
   font-family: 'Fredoka One', cursive;
-  font-size: 1.3rem;
-  margin-bottom: .5rem;
+  font-size: 1.2rem;
+  margin-bottom: .4rem;
 }
 
-/* Benefits */
+/* ══════ RECEIVE GRID ══════ */
+.receive-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .receive-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ══════ BENEFITS ══════ */
 .benefits-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .benefits-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
 }
 
 .benefit-card {
   background: white;
   border: 2.5px solid #1a1a1a;
   border-radius: var(--r);
-  padding: 1.5rem;
-  box-shadow: 4px 4px 0 #1a1a1a;
+  padding: 1.25rem 1rem;
+  box-shadow: 3px 3px 0 #1a1a1a;
   text-align: center;
 }
 
 .benefit-card h4 {
   font-weight: 800;
-  margin: .6rem 0 .3rem;
+  margin: .5rem 0 .3rem;
+  font-size: .9rem;
 }
 
 .benefit-card p {
-  font-size: .85rem;
+  font-size: .82rem;
   color: var(--muted);
 }
 
-/* Pricing */
+/* ══════ PRICING ══════ */
 .pricing-wrapper {
   display: flex;
   justify-content: center;
@@ -369,43 +556,51 @@ h2 {
   border-radius: 50px;
   padding: .4rem 1.2rem;
   font-weight: 900;
-  font-size: .85rem;
+  font-size: .83rem;
   display: inline-block;
   box-shadow: 3px 3px 0 #1a1a1a;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .pricing-card .price-now {
-  font-size: 4rem;
+  font-size: 3.5rem;
 }
 
-/* Form */
+@media (min-width: 640px) {
+  .pricing-card .price-now {
+    font-size: 4rem;
+  }
+}
+
+/* ══════ FORM ══════ */
 .form-card {
   max-width: 620px;
   margin: 0 auto;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .form-group label {
   display: block;
   font-weight: 800;
-  font-size: .9rem;
-  margin-bottom: .5rem;
+  font-size: .88rem;
+  margin-bottom: .45rem;
 }
 
 .form-group input {
   width: 100%;
-  padding: .875rem 1.1rem;
+  padding: .85rem 1rem;
   border: 2.5px solid #1a1a1a;
-  border-radius: var(--r-sm, 10px);
+  border-radius: var(--r);
   font: inherit;
   font-size: 1rem;
   background: white;
   outline: none;
   transition: box-shadow .15s;
+  /* Mobile: avoid zoom on focus */
+  font-size: 16px;
 }
 
 .form-group input:focus {
@@ -415,7 +610,7 @@ h2 {
 .drop-zone {
   border: 2.5px dashed #1a1a1a;
   border-radius: var(--r);
-  padding: 2.5rem 1rem;
+  padding: 2rem 1rem;
   text-align: center;
   cursor: pointer;
   background: white;
@@ -428,8 +623,8 @@ h2 {
 }
 
 .file-list {
-  margin-top: .75rem;
-  font-size: .84rem;
+  margin-top: .6rem;
+  font-size: .82rem;
   color: var(--muted);
 }
 
@@ -445,7 +640,7 @@ h2 {
   cursor: pointer;
 }
 
-/* FAQ */
+/* ══════ FAQ ══════ */
 .faq-wrap {
   max-width: 680px;
   margin: 0 auto;
@@ -455,19 +650,19 @@ h2 {
   background: white;
   border: 2.5px solid #1a1a1a;
   border-radius: var(--r);
-  margin-bottom: .75rem;
+  margin-bottom: .65rem;
   overflow: hidden;
   box-shadow: 3px 3px 0 #1a1a1a;
 }
 
 .faq-header {
-  padding: 1.1rem 1.5rem;
+  padding: 1rem 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   font-weight: 800;
-  font-size: .95rem;
+  font-size: .9rem;
   background: white;
 }
 
@@ -477,8 +672,8 @@ h2 {
 
 .faq-content {
   display: none;
-  padding: 0 1.5rem 1.1rem;
-  font-size: .9rem;
+  padding: 0 1.25rem 1rem;
+  font-size: .88rem;
   color: var(--muted);
 }
 
@@ -486,14 +681,21 @@ h2 {
   display: block;
 }
 
-/* CTA Banner */
+/* ══════ CTA BANNER ══════ */
 .cta-banner {
   background: var(--pink);
   border: 3px solid #1a1a1a;
   border-radius: var(--r-lg);
-  box-shadow: 8px 8px 0 #1a1a1a;
-  padding: 4rem 2rem;
+  box-shadow: 6px 6px 0 #1a1a1a;
+  padding: 3rem 1.5rem;
   text-align: center;
+}
+
+@media (min-width: 640px) {
+  .cta-banner {
+    padding: 4rem 2rem;
+    box-shadow: 8px 8px 0 #1a1a1a;
+  }
 }
 
 .cta-banner h2 {
@@ -502,23 +704,30 @@ h2 {
 
 .cta-banner p {
   color: rgba(255, 255, 255, .9);
-  font-size: 1.1rem;
-  margin: 1rem 0 2rem;
+  font-size: 1rem;
+  margin: .75rem 0 1.75rem;
   font-weight: 600;
 }
 
-/* Footer */
+@media (min-width: 640px) {
+  .cta-banner p {
+    font-size: 1.1rem;
+    margin: 1rem 0 2rem;
+  }
+}
+
+/* ══════ FOOTER ══════ */
 footer {
   border-top: 3px solid #1a1a1a;
-  padding: 2rem 0;
+  padding: 1.75rem 0;
   text-align: center;
-  font-size: .85rem;
+  font-size: .82rem;
   color: var(--muted);
   background: var(--pink-soft);
   font-weight: 600;
 }
 
-/* Alert modals */
+/* ══════ ALERT MODALS ══════ */
 .alert-backdrop {
   position: fixed;
   inset: 0;
@@ -538,8 +747,8 @@ footer {
   background: white;
   border: 3px solid #1a1a1a;
   border-radius: var(--r-lg);
-  box-shadow: 8px 8px 0 #1a1a1a;
-  padding: 2rem;
+  box-shadow: 6px 6px 0 #1a1a1a;
+  padding: 2rem 1.5rem;
   max-width: 360px;
   width: 100%;
   text-align: center;
@@ -549,37 +758,4 @@ footer {
   margin-bottom: 1.2rem;
   font-size: .95rem;
   font-weight: 600;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .cta-row {
-    justify-content: center;
-  }
-
-  .trust-row {
-    justify-content: center;
-  }
-
-  .hero-desc {
-    max-width: 100%;
-  }
-
-  .steps-grid {
-    grid-template-columns: 1fr;
-  }
-
-  section {
-    padding: 3.5rem 0;
-  }
-
-  .card,
-  .pricing-card {
-    padding: 2rem 1.5rem;
-  }
 }
