@@ -44,9 +44,9 @@ async def health() -> dict[str, str]:
 
 def _checkout_value() -> float:
     try:
-        return float(os.getenv("ASAAS_CHECKOUT_VALUE", "29.90").replace(",", "."))
+        return float(os.getenv("ASAAS_CHECKOUT_VALUE", "9.90").replace(",", "."))
     except ValueError:
-        return 29.90
+        return 9.90
 
 
 @app.post("/pet")
