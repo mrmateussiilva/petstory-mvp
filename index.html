@@ -4,16 +4,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetStory | Eternize seu pet em um livro de memórias</title>
+    <title>Livro Personalizado do Pet em PDF | PetStory</title>
+    <meta name="description"
+        content="Crie um livro personalizado do seu pet em PDF. Envie fotos, receba em minutos por e-mail e imprima quando quiser com a PetStory.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://www.petstory.live/">
+    <link rel="icon" type="image/png" href="image_com_efeito.png">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Livro Personalizado do Pet em PDF | PetStory">
+    <meta property="og:description"
+        content="Transforme fotos do seu pet em um livro personalizado para imprimir, colorir e guardar para sempre.">
+    <meta property="og:url" content="https://www.petstory.live/">
+    <meta property="og:site_name" content="PetStory">
+    <meta property="og:image" content="https://www.petstory.live/image_com_efeito.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Livro Personalizado do Pet em PDF | PetStory">
+    <meta name="twitter:description"
+        content="Envie fotos do seu pet e receba um livro digital personalizado em PDF para imprimir e guardar.">
+    <meta name="twitter:image" content="https://www.petstory.live/image_com_efeito.png">
     <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Organization",
+                    "@id": "https://www.petstory.live/#organization",
+                    "name": "PetStory",
+                    "url": "https://www.petstory.live/",
+                    "logo": "https://www.petstory.live/image_com_efeito.png",
+                    "description": "SaaS para transformar fotos de pets em livros de memórias digitais prontos para imprimir."
+                },
+                {
+                    "@type": "Product",
+                    "@id": "https://www.petstory.live/#product",
+                    "name": "Kit Digital PetStory",
+                    "description": "Livro de memórias personalizado em PDF, criado a partir de fotos do pet e entregue por e-mail em poucos minutos.",
+                    "image": "https://www.petstory.live/image_com_efeito.png",
+                    "brand": {
+                        "@id": "https://www.petstory.live/#organization"
+                    },
+                    "offers": {
+                        "@type": "Offer",
+                        "priceCurrency": "BRL",
+                        "price": "9.90",
+                        "availability": "https://schema.org/InStock",
+                        "url": "https://www.petstory.live/",
+                        "priceValidUntil": "2026-12-31"
+                    }
+                },
+                {
+                    "@type": "FAQPage",
+                    "@id": "https://www.petstory.live/#faq",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": "Quais tipos de pets posso enviar?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Qualquer animal. Caes, gatos, coelhos, passarinhos e outros pets podem ser enviados."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Quantas fotos preciso enviar?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Voce pode enviar de 1 a 5 fotos, com boa iluminacao e enquadramento do pet."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Como vou receber o livro?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "O livro e enviado em PDF de alta resolucao para o e-mail cadastrado."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "O pagamento e seguro?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Sim. O pagamento e feito por meios seguros, com opcoes como cartao e Pix."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Tenho garantia de satisfacao?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Sim. A compra conta com garantia de 7 dias para solicitar reembolso."
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    </script>
 </head>
 
-<body>
+<body id="top">
 
     <!-- ── Header ─────────────────────────── -->
     <header class="header" id="site-header">
         <div class="container">
-            <div class="logo">🐾 PetStory</div>
+            <a href="#top" class="logo" aria-label="Voltar ao topo da página PetStory">🐾 PetStory</a>
             <span class="nav-badge">⏰ Por tempo limitado!</span>
             <a href="#form-container" class="btn btn-pink">Criar meu livro</a>
         </div>
@@ -138,19 +235,19 @@
                 <div class="steps-grid">
                     <div class="card" style="text-align: center;">
                         <div class="step-icon">📸</div>
-                        <div class="step-title">Envie as fotos</div>
+                        <h3 class="step-title">Envie as fotos</h3>
                         <p style="font-size: .9rem; color: var(--muted);">Suba até 5 fotos favoritas do seu pet aqui no
                             site. Quanto mais, melhor!</p>
                     </div>
                     <div class="card" style="text-align: center;">
                         <div class="step-icon" style="background: var(--pink-soft);">🪄</div>
-                        <div class="step-title">Criamos a arte</div>
+                        <h3 class="step-title">Criamos a arte</h3>
                         <p style="font-size: .9rem; color: var(--muted);">Nossa IA transforma as fotos em traços lindos
                             e detalhados para colorir.</p>
                     </div>
                     <div class="card" style="text-align: center;">
                         <div class="step-icon" style="background: var(--teal);">💌</div>
-                        <div class="step-title">Você recebe!</div>
+                        <h3 class="step-title">Você recebe!</h3>
                         <p style="font-size: .9rem; color: var(--muted);">PDF pronto para imprimir direto no seu e-mail.
                             Sem espera!</p>
                     </div>
@@ -291,28 +388,33 @@
                 <h2>Dúvidas? A gente responde! 🤔</h2>
                 <div class="faq-wrap">
                     <div class="faq-item">
-                        <div class="faq-header">Quais tipos de pets posso enviar? <span>+</span></div>
-                        <div class="faq-content">Qualquer animal! Cães, gatos, coelhos, passarinhos... nossa arte se
+                        <button type="button" class="faq-header" aria-expanded="false" aria-controls="faq-answer-1"
+                            id="faq-question-1">Quais tipos de pets posso enviar? <span aria-hidden="true">+</span></button>
+                        <div class="faq-content" id="faq-answer-1" role="region" aria-labelledby="faq-question-1" hidden>Qualquer animal! Cães, gatos, coelhos, passarinhos... nossa arte se
                             adapta a qualquer pet.</div>
                     </div>
                     <div class="faq-item">
-                        <div class="faq-header">Quantas fotos preciso enviar? <span>+</span></div>
-                        <div class="faq-content">De 1 a 5 fotos. Recomendamos fotos com boa iluminação e que mostrem bem
+                        <button type="button" class="faq-header" aria-expanded="false" aria-controls="faq-answer-2"
+                            id="faq-question-2">Quantas fotos preciso enviar? <span aria-hidden="true">+</span></button>
+                        <div class="faq-content" id="faq-answer-2" role="region" aria-labelledby="faq-question-2" hidden>De 1 a 5 fotos. Recomendamos fotos com boa iluminação e que mostrem bem
                             o rosto do pet.</div>
                     </div>
                     <div class="faq-item">
-                        <div class="faq-header">Como vou receber o livro? <span>+</span></div>
-                        <div class="faq-content">Enviamos um arquivo PDF de alta resolução direto no e-mail que você
+                        <button type="button" class="faq-header" aria-expanded="false" aria-controls="faq-answer-3"
+                            id="faq-question-3">Como vou receber o livro? <span aria-hidden="true">+</span></button>
+                        <div class="faq-content" id="faq-answer-3" role="region" aria-labelledby="faq-question-3" hidden>Enviamos um arquivo PDF de alta resolução direto no e-mail que você
                             cadastrou.</div>
                     </div>
                     <div class="faq-item">
-                        <div class="faq-header">O pagamento é seguro? <span>+</span></div>
-                        <div class="faq-content">Sim! Usamos as plataformas mais seguras do Brasil. Pagamento via Cartão
+                        <button type="button" class="faq-header" aria-expanded="false" aria-controls="faq-answer-4"
+                            id="faq-question-4">O pagamento é seguro? <span aria-hidden="true">+</span></button>
+                        <div class="faq-content" id="faq-answer-4" role="region" aria-labelledby="faq-question-4" hidden>Sim! Usamos as plataformas mais seguras do Brasil. Pagamento via Cartão
                             ou Pix.</div>
                     </div>
                     <div class="faq-item">
-                        <div class="faq-header">Tenho garantia de satisfação? <span>+</span></div>
-                        <div class="faq-content">Sim! 7 dias de garantia. Se não gostar, devolvemos seu dinheiro sem
+                        <button type="button" class="faq-header" aria-expanded="false" aria-controls="faq-answer-5"
+                            id="faq-question-5">Tenho garantia de satisfação? <span aria-hidden="true">+</span></button>
+                        <div class="faq-content" id="faq-answer-5" role="region" aria-labelledby="faq-question-5" hidden>Sim! 7 dias de garantia. Se não gostar, devolvemos seu dinheiro sem
                             perguntas.</div>
                     </div>
                 </div>
@@ -351,7 +453,8 @@
 
     <footer>
         <p>© 2026 PetStory · Feito com ❤️ para os apaixonados por pets</p>
-        <p style="margin-top: .4rem; font-size: .78rem;">Política de Privacidade · Termos de Uso</p>
+        <p style="margin-top: .4rem; font-size: .78rem;"><a href="privacy.html">Política de Privacidade</a> · <a
+                href="terms.html">Termos de Uso</a></p>
     </footer>
 
     <script>window.API_URL = "https://petstory.finderbit.com.br";</script>

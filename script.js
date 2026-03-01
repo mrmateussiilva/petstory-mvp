@@ -34,9 +34,20 @@ addEventListener("DOMContentLoaded", () => {
     const checkout = params.get("checkout");
     const resultEl = document.getElementById("checkout-result");
     const formContainer = document.getElementById("form-container");
+    const canonicalEl = document.querySelector('link[rel="canonical"]');
+    const robotsEl = document.querySelector('meta[name="robots"]');
+    const pageTitle = "Livro Personalizado do Pet em PDF | PetStory";
+
+    if (canonicalEl && location.origin && location.origin !== "null") {
+        canonicalEl.href = location.origin + location.pathname;
+    }
+
     if (checkout && resultEl && formContainer) {
         const titleEl = document.getElementById("checkout-result-title");
         const msgEl = document.getElementById("checkout-result-message");
+        if (robotsEl) {
+            robotsEl.setAttribute("content", "noindex, nofollow");
+        }
         if (checkout === "success") {
             resultEl.classList.add("success");
             resultEl.classList.add("is-visible");
@@ -44,6 +55,7 @@ addEventListener("DOMContentLoaded", () => {
             if (titleEl) titleEl.textContent = "Pagamento confirmado!";
             if (msgEl) msgEl.textContent = "Em breve processaremos seu pedido e você receberá o livro por email.";
             formContainer.style.display = "none";
+            document.title = "Pagamento confirmado | PetStory";
         } else if (checkout === "cancel") {
             resultEl.classList.add("cancel");
             resultEl.classList.add("is-visible");
@@ -51,10 +63,28 @@ addEventListener("DOMContentLoaded", () => {
             if (titleEl) titleEl.textContent = "Pagamento cancelado";
             if (msgEl) msgEl.textContent = "Você pode criar sua história quando quiser.";
             formContainer.style.display = "none";
+            document.title = "Pagamento cancelado | PetStory";
+        }
+    } else {
+        document.title = pageTitle;
+    }
+
+    const ogUrlEl = document.querySelector('meta[property="og:url"]');
+    const ogImageEl = document.querySelector('meta[property="og:image"]');
+    const twitterImageEl = document.querySelector('meta[name="twitter:image"]');
+    if (location.origin && location.origin !== "null") {
+        if (ogUrlEl) {
+            ogUrlEl.setAttribute("content", location.origin + location.pathname);
+        }
+        const imageUrl = location.origin + "/image_com_efeito.png";
+        if (ogImageEl) {
+            ogImageEl.setAttribute("content", imageUrl);
+        }
+        if (twitterImageEl) {
+            twitterImageEl.setAttribute("content", imageUrl);
         }
     }
 
-    const petForm = document.getElementById("pet-form");
     const overlay = document.getElementById("checkout-cta-overlay");
     const dropZone = document.getElementById("drop-zone");
     const fileInput = document.getElementById("pet-file");
@@ -89,6 +119,12 @@ addEventListener("DOMContentLoaded", () => {
     }
 
     dropZone.addEventListener("click", () => fileInput.click());
+    dropZone.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            fileInput.click();
+        }
+    });
 
     dropZone.addEventListener("dragover", (e) => {
         e.preventDefault();
@@ -161,14 +197,30 @@ addEventListener("DOMContentLoaded", () => {
     const faqItems = document.querySelectorAll(".faq-item");
     faqItems.forEach((item) => {
         const header = item.querySelector(".faq-header");
+        const content = item.querySelector(".faq-content");
+
+        function setExpanded(expanded) {
+            item.classList.toggle("active", expanded);
+            header.setAttribute("aria-expanded", String(expanded));
+            if (content) {
+                content.hidden = !expanded;
+            }
+        }
+
         header.addEventListener("click", () => {
             const isActive = item.classList.contains("active");
-            // Close all other items
-            faqItems.forEach((i) => i.classList.remove("active"));
-            // Toggle current item
-            if (!isActive) {
-                item.classList.add("active");
-            }
+            faqItems.forEach((i) => {
+                i.classList.remove("active");
+                const otherHeader = i.querySelector(".faq-header");
+                const otherContent = i.querySelector(".faq-content");
+                if (otherHeader) {
+                    otherHeader.setAttribute("aria-expanded", "false");
+                }
+                if (otherContent) {
+                    otherContent.hidden = true;
+                }
+            });
+            setExpanded(!isActive);
         });
     });
 
