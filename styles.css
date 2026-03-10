@@ -227,6 +227,10 @@ h3 {
   color: white;
 }
 
+.btn-pink:hover {
+  background: #ff6b8a;
+}
+
 .btn-yellow {
   background: var(--yellow);
   color: var(--text);
@@ -277,9 +281,9 @@ h3 {
   border: 2px solid #1a1a1a;
   border-radius: 50px;
   display: inline-block;
-  padding: .3rem .8rem;
+  padding: .4rem 1rem;
   font-weight: 800;
-  font-size: .8rem;
+  font-size: .85rem;
   margin-bottom: 1rem;
   box-shadow: 2px 2px 0 #1a1a1a;
 }
@@ -301,14 +305,14 @@ h3 {
 
 .price-now {
   font-family: 'Fredoka One', cursive;
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   color: var(--pink);
   line-height: 1;
 }
 
 @media (min-width: 640px) {
   .price-now {
-    font-size: 3rem;
+    font-size: 3.25rem;
   }
 }
 
@@ -324,15 +328,16 @@ h3 {
 }
 
 .hero-desc {
-  font-size: .9rem;
-  color: var(--muted);
+  font-size: 1rem;
+  color: var(--text);
   margin-bottom: 1.5rem;
   line-height: 1.7;
+  font-weight: 600;
 }
 
 @media (min-width: 640px) {
   .hero-desc {
-    font-size: .95rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -348,10 +353,16 @@ h3 {
   text-align: center;
 }
 
+.cta-row .btn-pink {
+  font-size: 1.1rem;
+  padding: 1.1rem 1.5rem;
+}
+
 @media (min-width: 480px) {
   .cta-row {
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
   }
 
   .cta-row .btn {
@@ -378,6 +389,7 @@ h3 {
   font-size: .78rem;
   font-weight: 700;
   box-shadow: 3px 3px 0 #1a1a1a;
+  color: var(--text);
 }
 
 .mini-perks {
@@ -386,8 +398,14 @@ h3 {
   flex-direction: column;
   gap: .3rem;
   font-size: .78rem;
-  color: var(--muted);
+  color: var(--text);
   font-weight: 700;
+}
+
+.mini-perks span {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
 }
 
 @media (min-width: 480px) {
@@ -396,6 +414,11 @@ h3 {
     flex-wrap: wrap;
     gap: .8rem;
   }
+}
+
+.hero-extra {
+  color: var(--teal-d);
+  font-weight: 700;
 }
 
 /* Hero image card */
