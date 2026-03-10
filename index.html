@@ -140,8 +140,8 @@
                         </p>
 
                         <div class="cta-row">
-                            <a href="#form-container" class="btn btn-pink btn-main">CRIAR MEU LIVRO AGORA →</a>
-                            <a href="#como-funciona" class="btn btn-yellow">VER COMO FUNCIONA</a>
+                            <a href="#form-container" class="btn btn-pink btn-main" data-track="hero_cta_click">CRIAR MEU LIVRO AGORA →</a>
+                            <a href="#como-funciona" class="btn btn-yellow" data-track="secondary_cta_click">VER COMO FUNCIONA</a>
                         </div>
 
                         <div class="trust-bullets">
@@ -307,7 +307,7 @@
         </section>
 
         <!-- ── Preço ───────────────────────────── -->
-        <section class="bg-yellow">
+        <section class="bg-yellow" id="offer-section">
             <div class="container pricing-wrapper">
                 <div class="card pricing-card" style="text-align: center;">
                     <div class="pricing-pill">Oferta especial</div>
@@ -319,7 +319,7 @@
                         <span class="off-badge">67% OFF</span>
                     </div>
                     <p style="font-weight: 800; color: var(--teal-d); margin-bottom: 2rem;">PAGAMENTO ÚNICO • ACESSO IMEDIATO</p>
-                    <a href="#form-container" class="btn btn-pink btn-block btn-main" style="font-size: 1.15rem;">
+                    <a href="#form-container" class="btn btn-pink btn-block btn-main" data-track="checkout_click" style="font-size: 1.15rem;">
                         CRIAR MEU LIVRO AGORA
                     </a>
                     <p style="margin-top: 1rem; font-size: .8rem; color: var(--text); font-weight: 600;">🔒 Pagamento seguro</p>
@@ -356,7 +356,7 @@
                             <div class="file-list empty" id="file-list">Nenhuma foto selecionada</div>
                         </div>
                         <div class="checkout-cta-wrapper" style="margin-top: 2rem;">
-                            <button type="button" class="btn btn-pink btn-block" id="checkout-btn"
+                            <button type="button" class="btn btn-pink btn-block" id="checkout-btn" data-track="checkout_click"
                                 style="font-size: 1.05rem; padding: 1.1rem;">
                                 CRIAR MEU LIVRO AGORA →
                             </button>
@@ -407,7 +407,7 @@
                 <div class="cta-banner">
                     <h2>Seu pet merece virar uma lembrança para sempre 🐾</h2>
                     <p>Crie hoje um livro de memórias do seu pet e guarde essa história para sempre.</p>
-                    <a href="#form-container" class="btn btn-white btn-main" style="font-size: 1.1rem; padding: 1.1rem 3rem;">
+                    <a href="#form-container" class="btn btn-white btn-main" data-track="checkout_click" style="font-size: 1.1rem; padding: 1.1rem 3rem;">
                         CRIAR MEU LIVRO AGORA
                     </a>
                 </div>
@@ -476,6 +476,7 @@
             slider.addEventListener('click', e => setPosition(e.clientX));
         })();
     </script>
+    <script src="telemetry.js"></script>
 </body>
 
 </html>
