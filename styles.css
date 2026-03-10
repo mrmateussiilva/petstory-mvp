@@ -327,6 +327,13 @@ h3 {
   align-self: center;
 }
 
+.price-microcopy {
+  font-size: .8rem;
+  color: var(--teal-d);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
 .hero-desc {
   font-size: 1rem;
   color: var(--text);
@@ -356,6 +363,17 @@ h3 {
 .cta-row .btn-pink {
   font-size: 1.1rem;
   padding: 1.1rem 1.5rem;
+}
+
+.btn-main {
+  font-size: 1.15rem;
+  padding: 1.2rem 2rem;
+  background: var(--pink);
+  border-width: 3px;
+}
+
+.btn-main:hover {
+  background: #ff6b8a;
 }
 
 @media (min-width: 480px) {
@@ -416,9 +434,28 @@ h3 {
   }
 }
 
-.hero-extra {
-  color: var(--teal-d);
-  font-weight: 700;
+.trust-bullets {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.trust-bullets span {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+@media (min-width: 480px) {
+  .trust-bullets {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 }
 
 /* Hero image card */
