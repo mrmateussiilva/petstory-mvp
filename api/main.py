@@ -11,6 +11,7 @@ load_dotenv()
 
 import store
 import asaas
+import telemetry
 from process import processar_pedido
 
 MAX_FILES = 5
@@ -22,8 +23,16 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     prod = os.getenv("ASAAS_PRODUCTION", "false").lower() in ("true", "1")
-    msg = "PetStory API — Modo: produção (Asaas)" if prod else "PetStory API — Modo: desenvolvimento (Asaas sandbox)"
+    msg = (
+        "PetStory API — Modo: produção (Asaas)"
+        if prod
+        else "PetStory API — Modo: desenvolvimento (Asaas sandbox)"
+    )
     print(msg, flush=True)
+
+    telemetry.init_db()
+    print("Telemetry database initialized", flush=True)
+
     yield
 
 
@@ -59,7 +68,9 @@ async def create_pet(
     if len(pet_file) > MAX_FILES:
         raise HTTPException(status_code=400, detail="Máximo 5 imagens.")
     file_names: list[str] = []
-    order_id = store.create_order(pet_name=pet_name, user_email=user_email, file_names=[])
+    order_id = store.create_order(
+        pet_name=pet_name, user_email=user_email, file_names=[]
+    )
     order_dir = store.UPLOADS_DIR / order_id
     order_dir.mkdir(parents=True, exist_ok=True)
     for f in pet_file:
@@ -110,7 +121,9 @@ async def create_pet(
         )
     except ValueError as e:
         logger.warning("Falha ao criar checkout Asaas: %s", e)
-        raise HTTPException(status_code=502, detail="Falha ao criar checkout. Tente novamente.") from e
+        raise HTTPException(
+            status_code=502, detail="Falha ao criar checkout. Tente novamente."
+        ) from e
 
     store.update_order_asaas_checkout_id(order_id, result["id"])
     return {"ok": True, "checkout_url": result["checkout_url"]}
@@ -143,6 +156,22 @@ async def get_order(order_id: str):
     if not order:
         raise HTTPException(status_code=404, detail="Pedido não encontrado")
     return order
+
+
+@app.post("/telemetry/event")
+async def receive_telemetry_event(event: telemetry.TelemetryEvent):
+    """Recebe eventos de telemetria do frontend."""
+    telemetry.save_event(event)
+    return {"ok": True}
+
+
+@app.get("/telemetry/summary")
+async def get_telemetry_summary():
+    """Retorna resumo dos eventos de telemetria."""
+    return {
+        "summary": telemetry.get_summary(),
+        "unique_sessions": telemetry.get_unique_sessions(),
+    }
 
 
 if __name__ == "__main__":
