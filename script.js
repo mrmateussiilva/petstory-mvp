@@ -221,6 +221,12 @@ addEventListener("DOMContentLoaded", () => {
                 }
             });
             setExpanded(!isActive);
+            
+            // Track FAQ open event
+            if (!isActive && typeof sendEvent === 'function') {
+                const question = header.textContent.replace(/\+$/, '').trim();
+                sendEvent('faq_open', { question: question });
+            }
         });
     });
 
